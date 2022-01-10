@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>${exchange.orgId}</groupId>
+	<artifactId>dw-mock-data-generators</artifactId>
+	<version>${revision}</version>
+	<packaging>dw-library</packaging>
+
+	<name>DataWeave Mock Data Generators Library</name>
+
+	<!-- The project's description will become the asset's description in Exchange -->
+	<description>This library condenses functions to generate random data in commonly used formats.</description>
+
+	<properties>
+		<revision>1.0.0</revision>
+		<weave.version>2.4.0-20211228</weave.version>
+		<wtf.version>1.0.7-SNAPSHOT</wtf.version>
+		<exchange.orgId>1e0dbdda-5cda-4968-a636-0980a2c42cb1</exchange.orgId>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.mule.weave</groupId>
+			<artifactId>runtime</artifactId>
+			<version>${weave.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.weave</groupId>
+			<artifactId>core-modules</artifactId>
+			<version>${weave.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.weave</groupId>
+			<artifactId>java-module</artifactId>
+			<version>${weave.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.weave</groupId>
+			<artifactId>wtf</artifactId>
+			<version>${wtf.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/dw</directory>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/dwit</directory>
+			</testResource>
+			<testResource>
+				<directory>src/test/dwmit</directory>
+			</testResource>
+			<testResource>
+				<directory>src/test/dwtest</directory>
+			</testResource>
+		</testResources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>readme-md</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.basedir}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/src/main/resources/template</directory>
+									<includes>
+										<include>README.md</include>
+									</includes>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+							<encoding>UTF-8</encoding>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.mule.weave</groupId>
+				<artifactId>data-weave-maven-plugin</artifactId>
+				<version>0.0.8-SNAPSHOT</version>
+				<extensions>true</extensions>
+				<configuration>
+					<coverage>
+						<enabled>true</enabled>
+						<format>sonar</format>
+					</coverage>
+					<dwTestFolder>${project.basedir}/src/test/dwtest</dwTestFolder>
+					<dwTestResources>${project.basedir}/src/test/dwtest</dwTestResources>
+
+					<faviconPath>${project.basedir}/src/main/resources/favicon/parrot.jpg</faviconPath>
+					<moduleDocsPath>${project.basedir}/README.md</moduleDocsPath>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+				<version>1.1.0</version>
+				<configuration>
+					<updatePomFile>true</updatePomFile>
+					<flattenMode>resolveCiFriendliesOnly</flattenMode>
+				</configuration>
+				<executions>
+					<execution>
+						<id>flatten</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>flatten</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>flatten.clean</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
+	</build>
+	<repositories>
+		<repository>
+			<id>mule-releases</id>
+			<url>https://repository-master.mulesoft.org/nexus/content/repositories/releases</url>
+		</repository>
+		<repository>
+			<id>mule-snapshots</id>
+			<url>https://repository-master.mulesoft.org/nexus/content/repositories/snapshots</url>
+		</repository>
+		<repository>
+			<id>exchange</id>
+			<name>Devx Exchange</name>
+			<url>https://maven.devx.anypoint.mulesoft.com/api/v3/maven</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+	<distributionManagement>
+		<repository>
+			<id>exchange</id>
+			<name>Devx Exchange</name>
+			<url>https://maven.devx.anypoint.mulesoft.com/api/v3/organizations/${exchange.orgId}/maven</url>
+		</repository>
+	</distributionManagement>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>mule-releases</id>
+			<url>https://repository-master.mulesoft.org/nexus/content/repositories/releases</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>mule-snapshots</id>
+			<url>https://repository-master.mulesoft.org/nexus/content/repositories/snapshots</url>
+		</pluginRepository>
+	</pluginRepositories>
+</project>
