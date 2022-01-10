@@ -177,7 +177,7 @@ Include the following dependency in you project's POM.xml file:
 <dependency>
     <groupId>1e0dbdda-5cda-4968-a636-0980a2c42cb1</groupId>
     <artifactId>dw-mock-data-generators</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.0</version>
     <classifier>dw-library</classifier>
 </dependency>
 ```
