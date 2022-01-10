@@ -10,7 +10,7 @@ import * from org::mule::weave::generators::constants::DataConstants
     var base: Number = 5
     ---
             randomAge(base).asNumber must [
-                beGreaterThan(base)
+                beGreaterThan(base - 1)
             ]
         },
     "randomAge - String format" in do {
