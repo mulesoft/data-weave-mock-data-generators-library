@@ -54,6 +54,9 @@
 			<resource>
 				<directory>src/main/dw</directory>
 			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
 		</resources>
 		<testResources>
 			<testResource>
@@ -104,8 +107,6 @@
 						<enabled>true</enabled>
 						<format>sonar</format>
 					</coverage>
-					<dwTestFolder>${project.basedir}/src/test/dwtest</dwTestFolder>
-					<dwTestResources>${project.basedir}/src/test/dwtest</dwTestResources>
 
 					<faviconPath>${project.basedir}/src/main/resources/favicon/parrot.jpg</faviconPath>
 					<moduleDocsPath>${project.basedir}/README.md</moduleDocsPath>
