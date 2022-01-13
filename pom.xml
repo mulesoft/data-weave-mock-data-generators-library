@@ -10,7 +10,7 @@
 	<version>${revision}</version>
 	<packaging>dw-library</packaging>
 
-	<name>DataWeave Mock Data Generators Library</name>
+	<name>data-weave-mock-data-generators</name>
 
 	<!-- The project's description will become the asset's description in Exchange -->
 	<description>This library condenses functions to generate random data in commonly used formats.</description>
