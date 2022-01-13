@@ -6,81 +6,30 @@
 
 import * from org::mule::weave::generators::helpers::RandomHelpers
 import * from org::mule::weave::generators::constants::DataConstants
-import lower from dw::core::Strings
 
-/**
-* FormattedNumber type definition.
-*
-* [%header, cols="1,3"]
-* |===
-* | Type | Values
-* | FormattedNumber | { asString: String, asNumber: Number}
-* |===
-*
-**/
 
-type FormattedNumber = { asString: String, asNumber: Number}
+import lower, substringBeforeLast, withMaxSize from dw::core::Strings
+
+
 
 /**
 *
-* Decorator function to provide outputs as either Number or String.
+* Returns a random age ranging from `base` to `top`.
+*
+* Defaults to `base` if `top` is less than `base`.
 *
 * === Parameters
 *
 * [%header, cols="1,3"]
 * |===
-* | Name   | Description
-* | o | Result from the decorated function <Number>
+* | Name | Type   | Description
+* | base | Number | Minimum value for the generated age.
+* | top  | Number | Maximum value for the generated age. Default: `100`.
 * |===
 *
 * === Example
 *
-* This example shows how the `out` function behaves under different inputs.
-*
-* ==== Source
-*
-* [source,DataWeave,linenums]
-* ----
-* %dw 2.0
-* output application/json
-* import out from from org::mule::weave::generators::DataGeneratores
-* ---
-* out(45)
-*
-* ----
-*
-* ==== Output
-*
-* [source,Json,linenums]
-* ----
-* {
-*   "asString": "45",
-*   "asNumber": 45
-* }
-* ----
-**/
-
-fun out(o: Number): FormattedNumber = {
-        asString: o as String,
-        asNumber: o
-  }
-
-
-/**
-*
-* Returns a random age represented as an Integer value ranging from 0 to 100.
-*
-* === Parameters
-*
-* [%header, cols="1,3"]
-* |===
-* | Name   | Description
-* | base | Floor value which represents the minimum for all values generated. Type: Number
-* |===
-*
-* === Example
-*
-* This example shows how the `randomAge` function behaves under different inputs.
+* This example shows how the `randomAge` function behaves when generating a teenager age.
 *
 * ==== Source
 *
@@ -90,7 +39,7 @@ fun out(o: Number): FormattedNumber = {
 * output application/json
 * import randomAge from from org::mule::weave::generators::DataGeneratores
 * ---
-* randomAge(10).asNumber
+* randomAge(13, 19)
 *
 * ----
 *
@@ -98,11 +47,23 @@ fun out(o: Number): FormattedNumber = {
 *
 * [source,Json,linenums]
 * ----
-* 84
+* 15
 * ----
 **/
 
-fun randomAge(base: Number): FormattedNumber = out (base + randomInt(100 - base))
+fun randomAge(base: Number, top: Number = 100): Number = randomIntWithBase(base, top)
+
+/**
+* Helper function that enables `randomAge` to work with a `null` value.
+*/
+fun randomAge(base: Null, top: Any = null): Null = null
+
+/**
+* Helper function that enables `randomAge` to work with a `null` value.
+*/
+fun randomAge(base: Any, top: Null): Null = null
+
+
 
 
 /**
@@ -113,13 +74,14 @@ fun randomAge(base: Number): FormattedNumber = out (base + randomInt(100 - base)
 *
 * [%header, cols="1,3"]
 * |===
-* | Name   | Description
-* | base | Floor value which represents the minimum for all values generated. Type: Number
+* | Name | Type | Description
+* | base | Number | Minimum range value. Default: 0.
+* | top | Number | Maximum range value. Default: 100.
 * |===
 *
 * === Example
 *
-* This example shows how the `randomRate` function behaves under different inputs.
+* This example shows how the `randomRate` function behaves when setting only a minimun value.
 *
 * ==== Source
 *
@@ -141,7 +103,19 @@ fun randomAge(base: Number): FormattedNumber = out (base + randomInt(100 - base)
 * ----
 **/
 
-fun randomRate(base: Number = 0): String = "$(base + randomInt(100 - base))%"
+fun randomRate(base: Number = 0, top: Number = 100): String = "$(randomIntWithBase(base, top))%"
+
+/**
+* Helper function that enables `randomRate` to work with a `null` value.
+*/
+fun randomRate(base: Null, top: Any = null): Null = null
+
+/**
+* Helper function that enables `randomRate` to work with a `null` value.
+*/
+fun randomRate(base: Any, top: Null): Null = null
+
+
 
 
 /**
@@ -152,13 +126,13 @@ fun randomRate(base: Number = 0): String = "$(base + randomInt(100 - base))%"
 *
 * [%header, cols="1,3"]
 * |===
-* | Name   | Description
-* | baseUrl | The base URL used to generate the URLs. Type: String. Default: "http://acme.com/"
+* | Name | Type | Description
+* | baseUrl | String | The base URL used to generate the URLs. Default: "http://acme.com/"
 * |===
 *
 * === Example
 *
-* This example shows how the `randomUrl` function behaves under different inputs.
+* This example shows a possible result of `randomUrl`.
 *
 * ==== Source
 *
@@ -175,11 +149,24 @@ fun randomRate(base: Number = 0): String = "$(base + randomInt(100 - base))%"
 *
 * [source,Json,linenums]
 * ----
-* "http://acme.com/1252558""
+* "http://acme.com/c9c2c24/06816/27068f""
 * ----
 **/
 
-fun randomUrl(baseUrl: String = "http://acme.com/"): String = "$(baseUrl ++ randomInt(9999999) as String)"
+fun randomUrl(baseUrl: String = "http://acme.com/"): String = do {
+    var numberOfElements = randomIntWithBase(2, 4)
+    var cleanUrl = if (baseUrl[-1] == "/") substringBeforeLast(baseUrl, "/") else baseUrl
+    var finalUrl = [cleanUrl] ++ ((0 to numberOfElements) map ((item, index) -> randomId(randomIntWithBase(5, 9))))
+    ---
+    finalUrl joinBy "/"
+}
+
+/**
+* Helper function that enables `randomUrl` to work with a `null` value.
+*/
+fun randomUrl(baseUrl: Null): Null = null
+
+
 
 /**
 *
@@ -187,7 +174,7 @@ fun randomUrl(baseUrl: String = "http://acme.com/"): String = "$(baseUrl ++ rand
 *
 * === Example
 *
-* This example shows how the `randomPhoneNumber` function behaves under different inputs.
+* This example shows a possible result of `randomPhoneNumber`.
 *
 * ==== Source
 *
@@ -214,11 +201,11 @@ fun randomPhoneNumber(): String =
 
 /**
 *
-* Returns a random zip code consisting on the String representation of an Integer between 10000 and 2000.
+* Returns a random zip code consisting on the String representation of an Integer between 10000 and 20000.
 *
 * === Example
 *
-* This example shows how the `randomZipCode` function behaves under different inputs.
+* This example shows a possible result of `randomZipCode`.
 *
 * ==== Source
 *
@@ -228,7 +215,7 @@ fun randomPhoneNumber(): String =
 * output application/json
 * import randomZipCode from org::mule::weave::generators::DataGenerators
 * ---
-* randomZipCode().asString
+* randomZipCode() as String
 *
 * ----
 *
@@ -240,17 +227,16 @@ fun randomPhoneNumber(): String =
 * ----
 **/
 
-fun randomZipCode(): FormattedNumber =
-    out (randomIntWithBase(10000, 20000))
+fun randomZipCode(): Number = randomIntWithBase(10000, 20000)
 
 
 /**
 *
-* Returns a random address comprised of a door number (Number from 0 to 10000) and a street name
+* Returns a random address comprised of a door number (Number from 1 to 10000) and a street name
 *
 * === Example
 *
-* This example shows how the `randomAddress` function behaves under different inputs.
+* This example shows a possible result of `randomAddress`.
 *
 * ==== Source
 *
@@ -272,16 +258,17 @@ fun randomZipCode(): FormattedNumber =
 * ----
 **/
 
-fun randomAddress(): String = "$(randomInt(10000)) $(pickRandom(STREET_NAMES))"
+fun randomAddress(): String = "$(randomIntWithBase(1, 10000)) $(pickRandom(STREET_NAMES))"
 
 
 /**
 *
-* Returns a random credit card number, based on the criteria outlined in https://www.freeformatter.com/credit-card-number-generator-validator.html
+* Returns a random credit card number, based on the criteria outlined
+* in https://www.freeformatter.com/credit-card-number-generator-validator.html
 *
 * === Example
 *
-* This example shows how the `randomCreditCardNumber` function behaves under different inputs.
+* This example shows a possible result of `randomCreditCardNumber`.
 *
 * ==== Source
 *
@@ -291,7 +278,7 @@ fun randomAddress(): String = "$(randomInt(10000)) $(pickRandom(STREET_NAMES))"
 * output application/json
 * import randomCreditCardNumber from org::mule::weave::generators::DataGenerators
 * ---
-* randomCreditCardNumber().asString
+* randomCreditCardNumber() as String
 *
 * ----
 *
@@ -304,12 +291,12 @@ fun randomAddress(): String = "$(randomInt(10000)) $(pickRandom(STREET_NAMES))"
 * ----
 **/
 
-fun randomCreditCardNumber(): FormattedNumber = do {
+fun randomCreditCardNumber(): Number = do {
     var format: Array<Number> =  pickRandom(CREDIT_CARD_FORMATS)
     var start: Number = pickRandom(format[0 to -2])
     var remainder: Number = randomIntWithLength(format[-1] - sizeOf(start as String))
     ---
-    out("$(start)$(remainder)")
+    "$(start)$(remainder)" as Number
 }
 
 
@@ -321,7 +308,7 @@ fun randomCreditCardNumber(): FormattedNumber = do {
 *
 * === Example
 *
-* This example shows how the `randomSSN` function behaves under different inputs.
+* This example shows a possible result of `randomSSN`.
 *
 * ==== Source
 *
@@ -344,51 +331,21 @@ fun randomCreditCardNumber(): FormattedNumber = do {
 **/
 
 fun randomSSN(): String = do {
-    var SSNPrefixes: Array<Number> = (100 to 999) -- [666] -- (900 to 999)
+    var SSNPrefixes: Array<Number> = (100 to 899) -- [666]
     var first: Number = pickRandom(SSNPrefixes)
-    var second: Number = pickRandom((10 to 99))
-    var third: Number = pickRandom((1000 to 9999))
+    var second: Number = randomIntWithBase(10, 99)
+    var third: Number = randomIntWithBase(1000, 9999)
     ---
     "$(first)-$(second)-$(third)"
 }
 
 /**
 *
-* Retuns a random gender type.
+* Returns a random city name.
 *
 * === Example
 *
-* This example shows how the `randomGender` function behaves under different inputs.
-*
-* ==== Source
-*
-* [source,DataWeave,linenums]
-* ----
-* %dw 2.0
-* output application/json
-* import randomGender from org::mule::weave::generators::DataGenerators
-* ---
-* randomGender()
-*
-* ----
-*
-* ==== Output
-*
-* [source,Json,linenums]
-* ----
-* "female"
-* ----
-**/
-
-fun randomGender(): String = pickRandom(["male", "female"])
-
-/**
-*
-* Returns a random city name from the list of cities defined in https://datahub.io/core/world-cities
-*
-* === Example
-*
-* This example shows how the `randomCity` function behaves under different inputs.
+* This example shows a possible result of `randomCity`.
 *
 * ==== Source
 *
@@ -420,9 +377,9 @@ fun randomCity(): String = pickRandom(CITY_NAMES)
 *
 * [%header, cols="1,3"]
 * |===
-* | Name   | Description
-* | base | Floor value which represents the minimum for all values generated. Type: Number
-* | max | Ceiling value which represents the maximum for all values generated. Type: Number
+* | Name | Type | Description
+* | base | Number | Floor value which represents the minimum for all values generated. Default: 0.
+* | max | Number | Ceiling value which represents the maximum for all values generated.
 * |===
 *
 * === Example
@@ -437,7 +394,7 @@ fun randomCity(): String = pickRandom(CITY_NAMES)
 * output application/json
 * import randomPrice from org::mule::weave::generators::DataGenerators
 * ---
-* randomPrice(10,1000).asNumber
+* randomPrice(10,1000)
 *
 * ----
 *
@@ -449,16 +406,27 @@ fun randomCity(): String = pickRandom(CITY_NAMES)
 * ----
 **/
 
-fun randomPrice(base: Number = 0, max: Number): FormattedNumber = out(randomNumber(base, max, 2 ))
+fun randomPrice(base: Number = 0, max: Number): Number = randomNumber(base, max, 2 )
+
+/**
+* Helper function that enables `randomPrice` to work with a `null` value.
+*/
+fun randomPrice(base: Null, max: Any = null): Null = null
+
+/**
+* Helper function that enables `randomPrice` to work with a `null` value.
+*/
+fun randomPrice(base: Any, max: Null): Null = null
+
 
 
 /**
 *
-* Returns a random country from the list defined in https://gist.github.com/keeguon/2310008
+* Returns a random country name.
 *
 * === Example
 *
-* This example shows how the `randomCountry` function behaves under different inputs.
+* This example shows a possible result of `randomCountry`.
 *
 * ==== Source
 *
@@ -485,14 +453,15 @@ fun randomCountry(): String = pickRandom(COUNTRY_NAMES)
 
 /**
 *
-* Returns a randomId up to 4000 characters
+* Returns a randomId of `length` characters.
+* Or `""` if `length` is less than 1.
 *
 * === Parameters
 *
 * [%header, cols="1,3"]
 * |===
-* | Name   | Description
-* | length | Length of the desired output. Type: Number.
+* | Name | Type | Description
+* | length | Number | Length of the desired output.
 * |===
 *
 * === Example
@@ -520,27 +489,33 @@ fun randomCountry(): String = pickRandom(COUNTRY_NAMES)
 * ----
 **/
 
-fun randomId(length: Number = -1): String = do {
-    var MAX_CHARS: Number = 4000
-    fun loop(acc: String, l: Number, max: Number = MAX_CHARS) =
-        if (l > 0)
-            sizeOf(acc) match {
-                case s1 if (s1 >= max) -> acc[0 to max - 1]
-                case s2 if (s2 >= l) -> acc[0 to l - 1]
-                else -> loop(acc ++ (uuid() replace "-" with ""), l)
-            }
-        else (uuid() replace "-" with "")
+fun randomId(length: Number): String = do {
+    fun loop(acc: String, l: Number) = 
+        if (l <= 0)
+            acc
+        else do {
+            var smallId = uuid() replace  "-" with "" withMaxSize l
+            ---
+            loop(acc ++ smallId, l - sizeOf(smallId))
+        }
     ---
     loop("", length)
 }
 
 /**
+* Helper function that enables `randomId` to work with a `null` value.
+*/
+fun randomId(length: Null): Null = null
+
+
+
+/**
 *
-* Returns a random first name from the list defined in https://github.com/smashew/NameDatabases
+* Returns a random first name.
 *
 * === Example
 *
-* This example shows how the `randomFirstName` behaves under different inputs.
+* This example shows a possible result of `randomFirstName`.
 *
 * ==== Source
 *
@@ -567,11 +542,11 @@ fun randomFirstName(): String = pickRandom(FIRST_NAMES)
 
 /**
 *
-* Returns a random last name from the list defined in https://github.com/smashew/NameDatabases
+* Returns a random last name.
 *
 * === Example
 *
-* This example shows how the `randomLastName` function behaves under different inputs.
+* This example shows a possible result of `randomLastName`.
 *
 * ==== Source
 *
@@ -602,7 +577,7 @@ fun randomLastName(): String = pickRandom(LAST_NAMES)
 *
 * === Example
 *
-* This example shows how the `randomFullName` function behaves under different inputs.
+* This example shows a possible result of `randomFullName`.
 *
 * ==== Source
 *
@@ -633,7 +608,7 @@ fun randomFullName(): String = "$(randomFirstName()) $(randomLastName())"
 *
 * === Example
 *
-* This example shows how the `randomUserName` function behaves under different inputs.
+* This example shows a possible result of `randomUserName`.
 *
 * ==== Source
 *
@@ -661,14 +636,15 @@ fun randomUserName(): String = "$(lower(randomLastName()))$(randomIntWithBase(10
 
 /**
 *
-* Returns random text up to `length` characters
+* Returns random text up to `length` characters.
+* If `length` is negative, `""` is returned.
 *
 * === Parameters
 *
 * [%header, cols="1,3"]
 * |===
-* | Name   | Description
-* | length | The maximum length of the text to return. Type <Number>
+* | Name | Type | Description
+* | length | Number | The maximum length of the text to return.
 * |===
 *
 * === Example
@@ -683,7 +659,7 @@ fun randomUserName(): String = "$(lower(randomLastName()))$(randomIntWithBase(10
 * output application/json
 * import randomDescription from org::mule::weave::generators::DataGenerators
 * ---
-* randomDescription(200)
+* randomDescription(20)
 *
 * ----
 *
@@ -691,29 +667,36 @@ fun randomUserName(): String = "$(lower(randomLastName()))$(randomIntWithBase(10
 *
 * [source,Json,linenums]
 * ----
-* "calvary acetophenone starving pennipotent unplenteous tensome curelessness snubbingly dashee anthosiderite entwist distinguishability falcade semilyrically bookwards procombat malar singer breenge"
+* // Yes, this was randomly generated
+* "dataweave is great"
 * ----
 **/
-
 fun randomDescription(length: Number): String = do{
     fun go(acc: Array<String>, len: Number): String =
-        sizeOf(acc joinBy " ") match {
-            case l if (l > len) -> (acc[0 to -2] joinBy " ")
-            else -> go(acc << pickRandom(WORDS), len)
+        if (len <= 0)
+            ((acc[0 to -2] default []) joinBy " ")
+        else do {
+            var randomWord = pickRandom(WORDS)
+            ---
+            go(acc << randomWord, len - 1 - sizeOf(randomWord))
         }
     ---
     go([], length)
 }
 
+/**
+* Helper function that enables `randomDescription` to work with a `null` value.
+*/
+fun randomDescription(length: Null): Null = null
 
 
 /**
 *
-* Returns a random email address
+* Returns a random email address.
 *
 * === Example
 *
-* This example shows how the `randomEmailAddress` behaves under different inputs.
+* This example shows a possible result of `randomEmailAddress`.
 *
 * ==== Source
 *

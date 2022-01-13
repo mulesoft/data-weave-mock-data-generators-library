@@ -3,35 +3,44 @@
 import * from dw::test::Tests
 import * from dw::test::Asserts
 import * from org::mule::weave::generators::DataGenerators
-import * from org::mule::weave::generators::constants::DataConstants
----
+import * from org::mule::weave::generators::constants::DataConstants ---
+
 "DataGenerators" describedBy [
     "randomAge" describedBy [
         "randomAge - Number format" in do {
             var base: Number = 5
             ---
-            randomAge(base).asNumber must [
+            randomAge(base) must [
                 beGreaterThan(base - 1)
             ]
         },
-        "randomAge - String format" in do {
-            randomAge(5).asString must [
-                $ matches /[0-9]{1,2}/
-            ]
+        "It should return null on null values" in do {
+            randomAge(null) must beNull()
         },
     ],
-    "randomRate" describedBy [
+        "randomRate" describedBy [
         "randomRate - String format" in do {
             randomRate() must [
                 $ matches /[0-1]{0,1}[0-9]{0,1}[0-9]%/
             ]
         },
+        "It should return null on null values" in do {
+            randomRate(null, null) must beNull()
+        },
     ],
     "randomUrl" describedBy [
         "randomUrl - URL format" in do{
             randomUrl() must [
-                $ matches (/http:\/\/acme\.com\/[0-9]{0,7}/)
+                $ matches (/http:\/\/acme\.com(\/[\w0-9]{5,9}){2,4}/)
             ]
+        },
+        "Other baseUrl" in do {
+            randomUrl("www.dwlang.fun") must [
+                $ matches (/www\.dwlang\.fun(\/[\w0-9]{5,9}){2,4}/)
+            ]
+        },
+        "It should return null on null value" in do {
+            randomUrl(null) must beNull()
         },
     ],
     "randomPhoneNumber" describedBy [
@@ -43,32 +52,27 @@ import * from org::mule::weave::generators::constants::DataConstants
     ],
     "randomZipCode" describedBy [
         "randomZipCode - String format" in do {
-            randomZipCode().asString must [
+            randomZipCode() as String must [
                 $ matches /[1-2]{1}[0-9]{4}/
             ]
         },
        "randomZipCode - Number format" in do {
-            randomZipCode().asNumber must [
+            randomZipCode() must [
                 beGreaterThan(10000),
                 beLowerThan(20000)
             ]
         },
     ],
-    "randomAddress" describedBy [
+        "randomAddress" describedBy [
         "randomAddress - String format" in do {
             randomAddress() must [
-                $ matches /([0-9]{1,5})(\s(\w*)){1,3}/
+                $ matches /([1-9][0-9]{0,4})(\s[\w\.]*)*/
             ]
         },
     ],
     "randomCreditCardNumber" describedBy [
-        "randomCreditCardNumber - String format" in do {
-            randomCreditCardNumber().asString must [
-                $ matches /[0-9]{14,19}/
-            ]
-        },
         "randomCreditCardNumber - Number format" in do {
-            randomCreditCardNumber().asNumber must [
+            randomCreditCardNumber() must [
                 beGreaterThan(3*pow(10,13)),
                 beLowerThan(5*pow(10,17))
             ]
@@ -81,13 +85,6 @@ import * from org::mule::weave::generators::constants::DataConstants
             ]
         },
     ],
-    "randomGender" describedBy [
-        "randomGender - String format" in do{
-            randomGender() must [
-                beOneOf(["male", "female"])
-            ]
-        },
-    ],
     "randomCity" describedBy [
         "randomCity - String format" in do{
             randomCity() must [
@@ -97,27 +94,32 @@ import * from org::mule::weave::generators::constants::DataConstants
         },
     ],
     "randomPrice" describedBy [
-        "randomPrice - String format" in do{
-            randomPrice(3, 100).asString must [
-                beString(),
-                $ matches /[0-9]{1,3}\.[0-9]{1,2}/
-            ]
-
-        },
         "randomPrice - Number format" in do {
-            randomPrice(100).asNumber must [
-                beNumber(),
-                beGreaterThan(0),
-                beLowerThan(100)
+            randomPrice(100) must [
+                $ is Number,
+                $ > 0,
+                $ < 100
             ]
       },
+        "It should return null on null value" in do {
+            randomPrice(3, null) must beNull()
+        },
     ],
     "randomId" describedBy [
         "randomId - String format" in do {
-            randomId() must [
+            randomId(32) must [
                 beString(),
                 $ matches /(\w){0,32}/
             ]
+        },
+        "It should return empty string on neg input" in do {
+            randomId(-32) must [
+                beString(),
+                beEmpty(),
+            ]
+        },
+        "It should return null on null" in do {
+            randomId(null) must beNull()
         },
     ],
     "randomFirstName" describedBy [
@@ -153,6 +155,15 @@ import * from org::mule::weave::generators::constants::DataConstants
                 sizeOf($) <= len
             ]
         },
+        "It should return empty string on negative length" in do {
+            randomDescription(-7) must [
+                beString(),
+                beEmpty()
+            ]
+        },
+        "It should return null on null value" in do {
+            randomDescription(null) must beNull()
+        },
     ],
     "randomEmailAddress" describedBy [
         "randomEmailAddress - String format" in do{
@@ -161,5 +172,10 @@ import * from org::mule::weave::generators::constants::DataConstants
                     $ matches /([a-z]*)[0-9]{1,4}@([a-z0-9_-]*)\.([a-z0-9\_\-\.]*)/
                 ]
         }
+    ],
+    "randomUserName" describedBy [
+        "It should do something" in do {
+            randomUserName() must beString()
+        },
     ],
 ]

@@ -60,43 +60,10 @@
 		</resources>
 		<testResources>
 			<testResource>
-				<directory>src/test/dwit</directory>
-			</testResource>
-			<testResource>
-				<directory>src/test/dwmit</directory>
-			</testResource>
-			<testResource>
-				<directory>src/test/dwtest</directory>
+				<directory>src/test/dw</directory>
 			</testResource>
 		</testResources>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.2.0</version>
-				<executions>
-					<execution>
-						<id>readme-md</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.basedir}</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${project.basedir}/src/main/resources/template</directory>
-									<includes>
-										<include>README.md</include>
-									</includes>
-									<filtering>true</filtering>
-								</resource>
-							</resources>
-							<encoding>UTF-8</encoding>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 			<plugin>
 				<groupId>org.mule.weave</groupId>
 				<artifactId>data-weave-maven-plugin</artifactId>

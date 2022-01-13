@@ -13,6 +13,12 @@ import * from org::mule::weave::generators::helpers::RandomHelpers
                 beOneOf(list)
             ]
         },
+        "It should return null on empty array" in do {
+            pickRandom([]) must beNull()
+        },
+        "It should return null on null" in do {
+            pickRandom(null) must beNull()
+        },
     ],
     "randomIntWithBase" describedBy [
         "randomIntWithBase - Number format" in do{
@@ -20,10 +26,19 @@ import * from org::mule::weave::generators::helpers::RandomHelpers
         var max: Number = 1000
         ---
             randomIntWithBase(base, max) must [
-                beNumber(),
-                beGreaterThan(base),
-                beLowerThan(max)
+                $ is Number,
+                $ >= base,
+                $ <= max
             ]
+        },
+        "It should return null on invalid inputs" in do {
+            randomIntWithBase(3, 1) must equalTo(3)
+        },
+        "It should return null on null" in do {
+            randomIntWithBase(null, "testing") must beNull()
+        },
+        "It should return null on null" in do {
+            randomIntWithBase("testing", null) must beNull()
         },
     ],
     "randomNumber" describedBy [
@@ -33,12 +48,29 @@ import * from org::mule::weave::generators::helpers::RandomHelpers
         var precision: Number = 3
         ---
             randomNumber(base, max, precision) must [
-                beNumber(),
-                beGreaterThan(base),
-                beLowerThan(max),
-                beLowerThan(max),
+                $ is Number,
+                $ >= base,
+                $ <= max,
                 ($ as String) matches /[0-9]{2,4}\.[0-9]{0,3}/
             ]
+        },
+        "It should have empty decimal part on closed range" in do {
+            randomNumber(2, 2, 33) must equalTo(2)
+        },
+        "It should return null on invalid range" in do {
+            randomNumber(2, 1, 1) must equalTo(2)
+        },
+        "It should return null on invalid precision" in do {
+            randomNumber(3, 3, -3) must equalTo(3)
+        },
+        "It should return null on null input" in do {
+            randomNumber(null, "test", true) must beNull()
+        },
+        "It should return null on null input" in do {
+            randomNumber("test", null, true) must beNull()
+        },
+        "It should return null on null input" in do {
+            randomNumber("test", true, null) must beNull()
         },
     ],
     "randomIntWithLength" describedBy [
@@ -50,6 +82,12 @@ import * from org::mule::weave::generators::helpers::RandomHelpers
                 ($ as String) matches /[0-9]{10}/,
                 !(($ as String) matches /[0-9]{1,10}\.[0-9]+/)
             ]
-        }
+        },
+        "It return null on invalid input" in do {
+            randomIntWithLength(0) must equalTo(0)
+        },
+        "It should return null on null" in do {
+            randomIntWithLength(null) must beNull()
+        },
     ],
 ]
