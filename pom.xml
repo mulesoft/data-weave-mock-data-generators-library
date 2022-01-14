@@ -10,7 +10,7 @@
 	<version>${revision}</version>
 	<packaging>dw-library</packaging>
 
-	<name>DataWeave Mock Data Generators Library</name>
+	<name>data-weave-mock-data-generators</name>
 
 	<!-- The project's description will become the asset's description in Exchange -->
 	<description>This library condenses functions to generate random data in commonly used formats.</description>
@@ -54,46 +54,16 @@
 			<resource>
 				<directory>src/main/dw</directory>
 			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
 		</resources>
 		<testResources>
 			<testResource>
-				<directory>src/test/dwit</directory>
-			</testResource>
-			<testResource>
-				<directory>src/test/dwmit</directory>
-			</testResource>
-			<testResource>
-				<directory>src/test/dwtest</directory>
+				<directory>src/test/dw</directory>
 			</testResource>
 		</testResources>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.2.0</version>
-				<executions>
-					<execution>
-						<id>readme-md</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.basedir}</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${project.basedir}/src/main/resources/template</directory>
-									<includes>
-										<include>README.md</include>
-									</includes>
-									<filtering>true</filtering>
-								</resource>
-							</resources>
-							<encoding>UTF-8</encoding>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 			<plugin>
 				<groupId>org.mule.weave</groupId>
 				<artifactId>data-weave-maven-plugin</artifactId>
@@ -104,8 +74,6 @@
 						<enabled>true</enabled>
 						<format>sonar</format>
 					</coverage>
-					<dwTestFolder>${project.basedir}/src/test/dwtest</dwTestFolder>
-					<dwTestResources>${project.basedir}/src/test/dwtest</dwTestResources>
 
 					<faviconPath>${project.basedir}/src/main/resources/favicon/parrot.jpg</faviconPath>
 					<moduleDocsPath>${project.basedir}/README.md</moduleDocsPath>
