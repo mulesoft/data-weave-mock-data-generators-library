@@ -70,13 +70,14 @@
 				<version>0.0.8-SNAPSHOT</version>
 				<extensions>true</extensions>
 				<configuration>
-					<coverage>
-						<enabled>true</enabled>
-						<format>sonar</format>
-					</coverage>
-
-					<faviconPath>${project.basedir}/src/main/resources/favicon/parrot.jpg</faviconPath>
-					<moduleDocsPath>${project.basedir}/README.md</moduleDocsPath>
+					<tests>
+						<coverageEnabled>true</coverageEnabled>
+						<coverageFormat>sonar</coverageFormat>
+					</tests>
+					<docs>
+						<favicon>${project.basedir}/src/main/resources/favicon/parrot.jpg</favicon>
+						<homePage>${project.basedir}/README.md</homePage>
+					</docs>
 				</configuration>
 			</plugin>
 			<plugin>
