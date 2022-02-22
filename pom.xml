@@ -20,6 +20,13 @@
 		<weave.version>2.4.0-20211228</weave.version>
 		<wtf.version>1.0.7-SNAPSHOT</wtf.version>
 		<exchange.orgId>1e0dbdda-5cda-4968-a636-0980a2c42cb1</exchange.orgId>
+
+		<sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
+        <sonar.sources>src/main/dw,./pom.xml</sonar.sources>
+        <sonar.tests>src/test/dw</sonar.tests>
+        <sonar.coverageReportPaths>target/data-weave-test-reports/coverage/sonar.xml</sonar.coverageReportPaths>
+        <sonar.verbose>true</sonar.verbose>
+        <sonar.python.file.suffixes>.dwl</sonar.python.file.suffixes>
 	</properties>
 
 	<dependencies>
@@ -70,13 +77,14 @@
 				<version>0.0.8-SNAPSHOT</version>
 				<extensions>true</extensions>
 				<configuration>
-					<coverage>
-						<enabled>true</enabled>
-						<format>sonar</format>
-					</coverage>
-
-					<faviconPath>${project.basedir}/src/main/resources/favicon/parrot.jpg</faviconPath>
-					<moduleDocsPath>${project.basedir}/README.md</moduleDocsPath>
+					<tests>
+						<coverageEnabled>true</coverageEnabled>
+						<coverageFormat>sonar</coverageFormat>
+					</tests>
+					<docs>
+						<favicon>${project.basedir}/src/main/resources/favicon/parrot.jpg</favicon>
+						<homePage>${project.basedir}/README.md</homePage>
+					</docs>
 				</configuration>
 			</plugin>
 			<plugin>
