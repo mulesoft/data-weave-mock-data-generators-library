@@ -1,6 +1,6 @@
 # DataWeave Mock Data Generators Library
 
-![badge](https://github.com/mulesoft/data-weave-mock-data-generators/workflows/Pipeline/badge.svg)
+![badge](https://github.com/mulesoft/data-weave-mock-data-generators-library/workflows/Pipeline/badge.svg)
 
 This library consolidates functions to generate random mock data for testing purposes.
 
