@@ -16,7 +16,7 @@
 	<description>This library condenses functions to generate random data in commonly used formats.</description>
 
 	<properties>
-		<revision>1.0.1-SNAPSHOT</revision>
+		<revision>1.0.0</revision>
 		<data.weave.version>2.4.0-20211228</data.weave.version>
 		<data.weave.testing.framework.version>1.0.7-SNAPSHOT</data.weave.testing.framework.version>
 		<data.weave.maven.plugin.version>0.0.8-SNAPSHOT</data.weave.maven.plugin.version>
