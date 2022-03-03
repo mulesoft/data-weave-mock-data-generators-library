@@ -6,19 +6,20 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>${exchange.orgId}</groupId>
-	<artifactId>dw-mock-data-generators</artifactId>
+	<artifactId>data-weave-mock-data-generators-library</artifactId>
 	<version>${revision}</version>
 	<packaging>dw-library</packaging>
 
-	<name>data-weave-mock-data-generators</name>
+	<name>DataWeave Mock Data Generators Library</name>
 
 	<!-- The project's description will become the asset's description in Exchange -->
 	<description>This library condenses functions to generate random data in commonly used formats.</description>
 
 	<properties>
 		<revision>1.0.0</revision>
-		<weave.version>2.4.0-20211228</weave.version>
-		<wtf.version>1.0.7-SNAPSHOT</wtf.version>
+		<data.weave.version>2.4.0-20211228</data.weave.version>
+		<data.weave.testing.framework.version>1.0.7-SNAPSHOT</data.weave.testing.framework.version>
+		<data.weave.maven.plugin.version>0.0.8-SNAPSHOT</data.weave.maven.plugin.version>
 		<exchange.orgId>1e0dbdda-5cda-4968-a636-0980a2c42cb1</exchange.orgId>
 
 		<sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
@@ -33,25 +34,25 @@
 		<dependency>
 			<groupId>org.mule.weave</groupId>
 			<artifactId>runtime</artifactId>
-			<version>${weave.version}</version>
+			<version>${data.weave.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mule.weave</groupId>
 			<artifactId>core-modules</artifactId>
-			<version>${weave.version}</version>
+			<version>${data.weave.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mule.weave</groupId>
 			<artifactId>java-module</artifactId>
-			<version>${weave.version}</version>
+			<version>${data.weave.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mule.weave</groupId>
-			<artifactId>wtf</artifactId>
-			<version>${wtf.version}</version>
+			<artifactId>data-weave-testing-framework</artifactId>
+			<version>${data.weave.testing.framework.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -74,7 +75,7 @@
 			<plugin>
 				<groupId>org.mule.weave</groupId>
 				<artifactId>data-weave-maven-plugin</artifactId>
-				<version>0.0.8-SNAPSHOT</version>
+				<version>${data.weave.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
 					<tests>

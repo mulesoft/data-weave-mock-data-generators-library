@@ -1,4 +1,4 @@
-name: Test DataWeave Mock Data Generator Module
+name: Test DataWeave Mock Data Generator Library
 on:
   push:
     branches:
