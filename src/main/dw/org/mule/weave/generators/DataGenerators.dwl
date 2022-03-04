@@ -23,8 +23,8 @@ import lower, substringBeforeLast, withMaxSize from dw::core::Strings
 * [%header, cols="1,3"]
 * |===
 * | Name | Type   | Description
-* | base | Number | Minimum value for the generated age.
-* | top  | Number | Maximum value for the generated age. Default: `100`.
+* | `base` | `Number` | Minimum value for the generated age.
+* | `top`  | `Number` | Maximum value for the generated age. Default: `100`.
 * |===
 *
 * === Example
@@ -75,8 +75,8 @@ fun randomAge(base: Any, top: Null): Null = null
 * [%header, cols="1,3"]
 * |===
 * | Name | Type | Description
-* | base | Number | Minimum range value. Default: 0.
-* | top | Number | Maximum range value. Default: 100.
+* | `base` | `Number` | Minimum range value. Default: `0`.
+* | `top` | `Number` | Maximum range value. Default: `100`.
 * |===
 *
 * === Example
@@ -120,14 +120,14 @@ fun randomRate(base: Any, top: Null): Null = null
 
 /**
 *
-* Returns a random URL, represented as a baseUrl (optional) and an additional randomized path.
+* Returns a random URL, represented as a `baseUrl` (optional) and an additional randomized path.
 *
 * === Parameters
 *
 * [%header, cols="1,3"]
 * |===
 * | Name | Type | Description
-* | baseUrl | String | The base URL used to generate the URLs. Default: "http://acme.com/"
+* | `baseUrl` | `String` | The base URL used to generate the URLs. Default: "http://acme.com/"
 * |===
 *
 * === Example
@@ -170,7 +170,7 @@ fun randomUrl(baseUrl: Null): Null = null
 
 /**
 *
-* Returns a random phone number in US format.
+* Returns a random phone number in the US format.
 *
 * === Example
 *
@@ -201,7 +201,7 @@ fun randomPhoneNumber(): String =
 
 /**
 *
-* Returns a random zip code consisting on the String representation of an Integer between 10000 and 20000.
+* Returns a random zip code consisting of a String representation of an integer between 10000 and 20000.
 *
 * === Example
 *
@@ -232,7 +232,7 @@ fun randomZipCode(): Number = randomIntWithBase(10000, 20000)
 
 /**
 *
-* Returns a random address comprised of a door number (Number from 1 to 10000) and a street name
+* Returns a random address comprised of a door number (from 1 to 10000) and a street name.
 *
 * === Example
 *
@@ -263,8 +263,8 @@ fun randomAddress(): String = "$(randomIntWithBase(1, 10000)) $(pickRandom(STREE
 
 /**
 *
-* Returns a random credit card number, based on the criteria outlined
-* in https://www.freeformatter.com/credit-card-number-generator-validator.html
+* Returns a random credit card number based on the criteria outlined
+* in https://www.freeformatter.com/credit-card-number-generator-validator.html[Credit Card Number Generator & Validator].
 *
 * === Example
 *
@@ -304,7 +304,8 @@ fun randomCreditCardNumber(): Number = do {
 
 /**
 *
-* Returns a random SSN based on the criteria outlined in https://en.wikipedia.org/wiki/Social_Security_number#Structure
+* Returns a random social security number (SSN) based on the criteria outlined in 
+* https://en.wikipedia.org/wiki/Social_Security_number#Structure[Wikipedia].
 *
 * === Example
 *
@@ -378,13 +379,13 @@ fun randomCity(): String = pickRandom(CITY_NAMES)
 * [%header, cols="1,3"]
 * |===
 * | Name | Type | Description
-* | base | Number | Floor value which represents the minimum for all values generated. Default: 0.
-* | max | Number | Ceiling value which represents the maximum for all values generated.
+* | `base` | `Number` | Floor value that represents the minimum for all values generated. Default: `0`.
+* | `max` | `Number` | Ceiling value that represents the maximum for all values generated.
 * |===
 *
 * === Example
 *
-* This example shows how the `randomPrice` function behaves under different inputs.
+* This example shows how the `randomPrice` function behaves with different inputs.
 *
 * ==== Source
 *
@@ -453,20 +454,20 @@ fun randomCountry(): String = pickRandom(COUNTRY_NAMES)
 
 /**
 *
-* Returns a randomId of `length` characters.
-* Or `""` if `length` is less than 1.
+* Returns a random identifier with the given `length`.
+* Returns `""` if `length` is less than 1.
 *
 * === Parameters
 *
 * [%header, cols="1,3"]
 * |===
 * | Name | Type | Description
-* | length | Number | Length of the desired output.
+* | `length` | `Number` | Length of the desired output.
 * |===
 *
 * === Example
 *
-* This example shows how the `randomId` function behaves under different inputs.
+* This example shows how the `randomId` function behaves with different inputs.
 *
 * ==== Source
 *
@@ -573,7 +574,7 @@ fun randomLastName(): String = pickRandom(LAST_NAMES)
 
 /**
 *
-* Returns a random full name, based on the combination of randomFirstName and randomLastName
+* Returns a random full name, based on the combination of `randomFirstName` and `randomLastName`.
 *
 * === Example
 *
@@ -636,7 +637,7 @@ fun randomUserName(): String = "$(lower(randomLastName()))$(randomIntWithBase(10
 
 /**
 *
-* Returns random text up to `length` characters.
+* Returns random text up to a given `length`.
 * If `length` is negative, `""` is returned.
 *
 * === Parameters
@@ -644,12 +645,12 @@ fun randomUserName(): String = "$(lower(randomLastName()))$(randomIntWithBase(10
 * [%header, cols="1,3"]
 * |===
 * | Name | Type | Description
-* | length | Number | The maximum length of the text to return.
+* | `length` | `Number` | The maximum length of the text to return.
 * |===
 *
 * === Example
 *
-* This example shows how the `randomDescription` function behaves under different inputs.
+* This example shows how the `randomDescription` function behaves with different inputs.
 *
 * ==== Source
 *
