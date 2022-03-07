@@ -18,7 +18,7 @@ Some of the use cases covered:
 __________________________________________
 ## Example
 
-The script:
+DataWeave Script:
 
 ```javascript
 %dw 2.0
@@ -40,7 +40,7 @@ import * from org::mule::weave::generators::DataGenerators
 
 ```
 
-lays down:
+Output:
 
 ```json
 [
