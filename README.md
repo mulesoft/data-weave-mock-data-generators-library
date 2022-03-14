@@ -23,7 +23,7 @@ DataWeave Script:
 ```javascript
 %dw 2.0
 output application/json
-import * from org::mule::weave::generators::DataGenerators
+import * from mocks::DataGenerators
 ---
 (0 to 2) as Array map (v, i) -> {
     name: randomFirstName(),

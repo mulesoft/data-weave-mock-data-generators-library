@@ -1,7 +1,7 @@
 %dw 2.0
 import * from dw::test::Tests
 import * from dw::test::Asserts
-import * from org::mule::weave::generators::helpers::RandomHelpers
+import * from mocks::helpers::RandomHelpers
 ---
 "RandomHelpers" describedBy [
     "pickRandom" describedBy [

@@ -2,8 +2,9 @@
 %dw 2.0
 import * from dw::test::Tests
 import * from dw::test::Asserts
-import * from org::mule::weave::generators::DataGenerators
-import * from org::mule::weave::generators::constants::DataConstants ---
+import * from mocks::DataGenerators
+import * from mocks::constants::DataConstants
+---
 
 "DataGenerators" describedBy [
     "randomAge" describedBy [
