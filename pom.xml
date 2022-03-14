@@ -19,7 +19,7 @@
 		<revision>1.0.0</revision>
 		<data.weave.version>2.4.0-20211228</data.weave.version>
 		<data.weave.testing.framework.version>1.0.7-SNAPSHOT</data.weave.testing.framework.version>
-		<data.weave.maven.plugin.version>0.0.8-SNAPSHOT</data.weave.maven.plugin.version>
+		<data.weave.maven.plugin.version>0.1.0</data.weave.maven.plugin.version>
 		<exchange.orgId>1e0dbdda-5cda-4968-a636-0980a2c42cb1</exchange.orgId>
 
 		<sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
