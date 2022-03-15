@@ -29,7 +29,7 @@ import * from dw::core::Arrays
 * [source,DataWeave,linenums]
 * ----
 * %dw 2.0
-* import * from org::mule::weave::generators::helpers::RandomHelpers
+* import * from mocks::helpers::RandomHelpers
 * ---
 * pickRandom([1, "Nacho", 3])
 *
@@ -76,7 +76,7 @@ fun pickRandom(options: Null): Null = null
 * ----
 * %dw 2.0
 * output application/json
-* import randomIntWithBase from org::mule::weave::generators::helpers::RandomHelpers
+* import randomIntWithBase from mocks::helpers::RandomHelpers
 * ---
 * randomIntWithBase(2,10)
 *
@@ -133,7 +133,7 @@ fun randomIntWithBase(base: Any, max: Null):  Null = null
 * ----
 * %dw 2.0
 * output application/json
-* import * from org::mule::weave::generators::helpers::RandomHelpers
+* import * from mocks::helpers::RandomHelpers
 * ---
 * randomNumber(0,1,10)
 *
@@ -197,7 +197,7 @@ fun randomNumber(base: Any, max: Any, precision: Null):  Null = null
 * ----
 * %dw 2.0
 * output application/json
-* import * from org::mule::weave::generators::helpers::RandomHelpers
+* import * from mocks::helpers::RandomHelpers
 * ---
 * randomIntWithLength(20)
 *

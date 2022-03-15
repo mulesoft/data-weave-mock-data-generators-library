@@ -4,8 +4,8 @@
 
 %dw 2.0
 
-import * from org::mule::weave::generators::helpers::RandomHelpers
-import * from org::mule::weave::generators::constants::DataConstants
+import * from mocks::helpers::RandomHelpers
+import * from mocks::constants::DataConstants
 
 
 import lower, substringBeforeLast, withMaxSize from dw::core::Strings
@@ -37,7 +37,7 @@ import lower, substringBeforeLast, withMaxSize from dw::core::Strings
 * ----
 * %dw 2.0
 * output application/json
-* import randomAge from from org::mule::weave::generators::DataGeneratores
+* import randomAge from from mocks::DataGeneratores
 * ---
 * randomAge(13, 19)
 *
@@ -89,7 +89,7 @@ fun randomAge(base: Any, top: Null): Null = null
 * ----
 * %dw 2.0
 * output application/json
-* import randomRate from from org::mule::weave::generators::DataGenerators
+* import randomRate from from mocks::DataGenerators
 * ---
 *  randomRate(45)
 *
@@ -182,7 +182,7 @@ fun randomUrl(baseUrl: Null): Null = null
 * ----
 * %dw 2.0
 * output application/json
-* import randomPhoneNumber from org::mule::weave::generators::DataGenerators
+* import randomPhoneNumber from mocks::DataGenerators
 * ---
 * randomPhoneNumber()
 *
@@ -213,7 +213,7 @@ fun randomPhoneNumber(): String =
 * ----
 * %dw 2.0
 * output application/json
-* import randomZipCode from org::mule::weave::generators::DataGenerators
+* import randomZipCode from mocks::DataGenerators
 * ---
 * randomZipCode() as String
 *
@@ -244,7 +244,7 @@ fun randomZipCode(): Number = randomIntWithBase(10000, 20000)
 * ----
 * %dw 2.0
 * output application/json
-* import randomAddress from org::mule::weave::generators::DataGenerators
+* import randomAddress from mocks::DataGenerators
 * ---
 * randomAddress()
 *
@@ -276,7 +276,7 @@ fun randomAddress(): String = "$(randomIntWithBase(1, 10000)) $(pickRandom(STREE
 * ----
 * %dw 2.0
 * output application/json
-* import randomCreditCardNumber from org::mule::weave::generators::DataGenerators
+* import randomCreditCardNumber from mocks::DataGenerators
 * ---
 * randomCreditCardNumber() as String
 *
@@ -317,7 +317,7 @@ fun randomCreditCardNumber(): Number = do {
 * ----
 * %dw 2.0
 * output application/json
-* import randomSSN from org::mule::weave::generators::DataGenerators
+* import randomSSN from mocks::DataGenerators
 * ---
 * randomSSN()
 *
@@ -354,7 +354,7 @@ fun randomSSN(): String = do {
 * ----
 * %dw 2.0
 * output application/json
-* import randomCity from org::mule::weave::generators::DataGenerators
+* import randomCity from mocks::DataGenerators
 * ---
 * randomCity()
 *
@@ -393,7 +393,7 @@ fun randomCity(): String = pickRandom(CITY_NAMES)
 * ----
 * %dw 2.0
 * output application/json
-* import randomPrice from org::mule::weave::generators::DataGenerators
+* import randomPrice from mocks::DataGenerators
 * ---
 * randomPrice(10,1000)
 *
@@ -435,7 +435,7 @@ fun randomPrice(base: Any, max: Null): Null = null
 * ----
 * %dw 2.0
 * output application/json
-* import randomCountry from org::mule::weave::generators::DataGenerators
+* import randomCountry from mocks::DataGenerators
 * ---
 * randomCountry()
 *
@@ -475,7 +475,7 @@ fun randomCountry(): String = pickRandom(COUNTRY_NAMES)
 * ----
 * %dw 2.0
 * output application/json
-* import randomId from org::mule::weave::generators::DataGenerators
+* import randomId from mocks::DataGenerators
 * ---
 * randomId(50)
 *
@@ -524,7 +524,7 @@ fun randomId(length: Null): Null = null
 * ----
 * %dw 2.0
 * output application/json
-* import randomFirstName from org::mule::weave::generators::DataGenerators
+* import randomFirstName from mocks::DataGenerators
 * ---
 * randomFirstName()
 *
@@ -555,7 +555,7 @@ fun randomFirstName(): String = pickRandom(FIRST_NAMES)
 * ----
 * %dw 2.0
 * output application/json
-* import randomLastName from org::mule::weave::generators::DataGenerators
+* import randomLastName from mocks::DataGenerators
 * ---
 * randomLastName()
 *
@@ -586,7 +586,7 @@ fun randomLastName(): String = pickRandom(LAST_NAMES)
 * ----
 * %dw 2.0
 * output application/json
-* import randomFullName from org::mule::weave::generators::DataGenerators
+* import randomFullName from mocks::DataGenerators
 * ---
 * randomFullName()
 *
@@ -617,7 +617,7 @@ fun randomFullName(): String = "$(randomFirstName()) $(randomLastName())"
 * ----
 * %dw 2.0
 * output application/json
-* import randomUserName from org::mule::weave::generators::DataGenerators
+* import randomUserName from mocks::DataGenerators
 * ---
 * randomUserName()
 *
@@ -658,7 +658,7 @@ fun randomUserName(): String = "$(lower(randomLastName()))$(randomIntWithBase(10
 * ----
 * %dw 2.0
 * output application/json
-* import randomDescription from org::mule::weave::generators::DataGenerators
+* import randomDescription from mocks::DataGenerators
 * ---
 * randomDescription(20)
 *
@@ -705,7 +705,7 @@ fun randomDescription(length: Null): Null = null
 * ----
 * %dw 2.0
 * output application/json
-* import randomEmailAddress from org::mule::weave::generators::DataGenerators
+* import randomEmailAddress from mocks::DataGenerators
 * ---
 * randomEmailAddress()
 *
