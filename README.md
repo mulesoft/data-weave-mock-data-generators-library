@@ -1,7 +1,5 @@
 # DataWeave Mock Data Generators Library
 
-![badge](https://github.com/mulesoft/data-weave-mock-data-generators-library/workflows/Pipeline/badge.svg)
-
 This library consolidates functions to generate random mock data for testing purposes.
 
 Some of the use cases covered:
@@ -15,12 +13,11 @@ Some of the use cases covered:
 - **User names**
 - **Email addresses**
 
-__________________________________________
-## Example
+## Overview
 
-DataWeave Script:
+The following example shows some randomly generated mock data:
 
-```javascript
+```dataweave
 %dw 2.0
 output application/json
 import * from mocks::DataGenerators
@@ -106,25 +103,15 @@ Output:
   }
 ]
 ```
-__________________________________________
 ## Contributions Welcome
+
+Contributions to this project can be made through Pull Requests and Issues on the
+[GitHub Repository](https://github.com/mulesoft/data-weave-mock-data-generators-library).
 
 Before creating a pull request review the following:
 
-* [LICENSE](LICENSE.txt)
-* [SECURITY](SECURITY.md)
-* [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md)
+* [LICENSE](https://github.com/mulesoft/data-weave-mock-data-generators-library/blob/master/LICENSE.txt)
+* [SECURITY](https://github.com/mulesoft/data-weave-mock-data-generators-library/blob/master/SECURITY.md)
+* [CODE_OF_CONDUCT](https://github.com/mulesoft/data-weave-mock-data-generators-library/blob/master/CODE_OF_CONDUCT.md)
 
 When you submit your pull request, you are asked to sign a contributor license agreement (CLA) if we don't have one on file for you.
-
-## Issues
-We use GitHub Issues for tracking. Please submit your bugs or issues there. We also accept PR's ;)
-
-## Final Thoughts
-
-Try it! Explore the docs! Don't forget to submit your improvements or feedback :)
-
-
-
-
-

@@ -17,12 +17,12 @@ import * from dw::core::Arrays
 * [%header, cols="1,3"]
 * |===
 * | Name | Type   | Description
-* | options | Array<T> | Array of values from which to pick.
+* | `options` | `Array<T>` | Array of values from which to pick.
 * |===
 *
 * === Example
 *
-* This example shows how the `pickRandom` behaves under an arbitrary array.
+* This example shows how `pickRandom` behaves under an arbitrary array.
 *
 * ==== Source
 *
@@ -62,8 +62,8 @@ fun pickRandom(options: Null): Null = null
 * [%header, cols="1,3"]
 * |===
 * | Name | Type   | Description
-* | base | Number | The base value.
-* | max | Number | The ceiling value.
+* | `base` | `Number` | The base value.
+* | `max` | `Number` | The ceiling value.
 * |===
 *
 * === Example
@@ -118,9 +118,9 @@ fun randomIntWithBase(base: Any, max: Null):  Null = null
 * [%header, cols="1,3"]
 * |===
 * | Name | Type   | Description
-* | base | Number | The base value.
-* | max | Number | The ceiling value.
-* | precision | Number | The desired amount of decimal places to be returned.
+* | `base` | `Number` | The base value.
+* | `max` | `Number` | The ceiling value.
+* | `precision` | `Number` | The desired amount of decimal places to be returned.
 * |===
 *
 * === Example
@@ -184,7 +184,7 @@ fun randomNumber(base: Any, max: Any, precision: Null):  Null = null
 * [%header, cols="1,3"]
 * |===
 * | Name | Type   | Description
-* | len | Number | The desired lenght for the output number.
+* | `len` | `Number` | The desired lenght for the output number.
 * |===
 *
 * === Example

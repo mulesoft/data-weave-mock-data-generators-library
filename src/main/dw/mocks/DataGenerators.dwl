@@ -201,7 +201,7 @@ fun randomPhoneNumber(): String =
 
 /**
 *
-* Returns a random zip code consisting of a String representation of an integer between 10000 and 20000.
+* Returns a random zip code consisting of a Number between 10000 and 20000.
 *
 * === Example
 *

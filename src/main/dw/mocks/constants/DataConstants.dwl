@@ -1,3 +1,6 @@
+/**
+ * This module contains data constants used to generate random data.
+*/
 %dw 2.0
 
 /**
