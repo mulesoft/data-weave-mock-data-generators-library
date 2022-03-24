@@ -1,5 +1,7 @@
 # DataWeave Mock Data Generators Library
 
+[![Build & Test](https://github.com/mulesoft/data-weave-mock-data-generators-library/actions/workflows/test.yml/badge.svg)](https://github.com/mulesoft/data-weave-mock-data-generators-library/actions/workflows/test.yml)
+
 This library consolidates functions to generate random mock data for testing purposes.
 
 Some of the use cases covered:
