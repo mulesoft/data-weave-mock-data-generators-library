@@ -84,6 +84,9 @@
                         <coverageEnabled>true</coverageEnabled>
                         <coverageFormat>sonar</coverageFormat>
                     </tests>
+                    <packager>
+                        <moduleName>org.mule.weave.library.mockdatagenerators</moduleName>
+                    </packager>
                     <docs>
                         <favicon>${project.basedir}/src/main/resources/favicon/documentation-medium.png</favicon>
                         <homePage>${project.basedir}/README.md</homePage>
