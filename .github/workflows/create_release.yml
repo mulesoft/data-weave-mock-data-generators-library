@@ -48,7 +48,7 @@ jobs:
         with:
           application_id: ${{ secrets.APP_ID }}
           application_private_key: ${{ secrets.APP_PRIVATE_KEY }}
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           token: ${{ steps.get_workflow_token.outputs.token }}
       - name: Set up JDK 17
